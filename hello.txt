@@ -2,3 +2,9 @@
 真的是进不去githu、
 我草泥马历经千辛万苦终于进来了 妈蛋
 老李再和你对话  github！！！
+
+
+如何解决failed to push some refs to git
+错误的主要原因是github中的README.md文件不在本地代码目录中
+git pull --rebase origin master  (pull=fetch+merge)
+git push -u origin master

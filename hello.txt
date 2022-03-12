@@ -52,6 +52,12 @@ hahaha
    6.集合
      特点：集合内元素无序且唯一  用{}包围 与对象和枚举对比记忆
      目前ES6已经新加入了set类型的实现
+     复习:hasOwnProperty和Object.keys的用法
+     交  并  差 子
+
+   7.字典
+      集合，字典，散列表可以存储不重复数据  集合存储{value，value}
+      字典{key：value} 也叫做映射  object对象是紫蝶在js中实现
 
 
 

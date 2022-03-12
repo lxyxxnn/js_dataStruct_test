@@ -1,52 +1,65 @@
-class PriorityQueue{
-    constructor() {
-        this.items = []
-    }
-    enQueue(element,priority) {
-        const queueElement= {element,priority};
-        if(this.isEmpty) {
-            this.items.push(queueElement)
-        } else {
-            const prePriority = this.items.findIndex((item)=>
-                 queueElement.priority<item.priority
-            )
-            if(prePriority > -1) {
-                this.items.splice(prePriority,0,queueElement)
-            } else {
-                this.items.push(queueElement)
-            }
-        }
-    }
+class PriorityQueue {
+  constructor(item) {
+      this.items = [] || item
+  }
 
-    isEmpty() {
-            return !this.items.length
+  enQueue(element,priority) {
+      const queueelement = {element,priority}
+      if(this.isEmpty()) {
+          this.items.push(queueelement)
+      } else {
+          const preIndex = this.items.findIndex((item)=> queueelement.priority<item.priority
+          )
+          if(preIndex!=-1) {
+              this.items.splice(preIndex,0,queueelement)
+          } else {
+              this.items.push(queueelement)
+          }
+      }
+  }
 
-    }
+  deQueue() {
+      return this.items.shift()
+  }
 
-    deQueue() {
-        return this.items.shift()
-    }
-    front() {
-        return this.items[0]
-    }
+   get front() {
+      return this.items[0]
+  }
 
-    getSize() {
-        return this.items.length
-    }
-    print() {
-        console.log(this.items)
-    }
+  clear() {
+      this.items = []
+  }
+
+   get Size() {
+      return this.items.length
+  }
+
+
+ isEmpty() {
+      return !this.items.length
+  }
+
+  print() {
+      console.log(this.items)
+  }
+  resetQueue(items) {
+      this.items = items
+  }
 }
-const priorityQueue = new PriorityQueue()
-priorityQueue.enQueue('John', 2)
-priorityQueue.enQueue('Jack', 1)
-priorityQueue.enQueue('Camila', 1)
-priorityQueue.enQueue('Surmon', 3)
-priorityQueue.enQueue('skyRover', 2)
-priorityQueue.enQueue('司马萌', 1)
-priorityQueue.print()
 
-priorityQueue.enQueue('axb',0)
-priorityQueue.print()
+let queue = new PriorityQueue()
+queue.enQueue('李星云',0)
+queue.enQueue('姬如雪',2)
+queue.enQueue('张子凡',1)
+queue.enQueue('陆林轩',4)
+queue.enQueue('李茂贞',3)
 
-console.log(priorityQueue.isEmpty(), priorityQueue.getSize()) // false 6
+queue.print()
+queue.enQueue('朱友文',0)
+queue.print()
+console.log(queue.deQueue())
+queue.print()
+console.log('--------------')
+queue.resetQueue([1,2,3])
+queue.deQueue()
+queue.print()

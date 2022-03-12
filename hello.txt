@@ -9,3 +9,19 @@
 git pull --rebase origin master  (pull=fetch+merge)
 git push -u origin master
 hahaha
+练习笔记
+
+
+1.优先队列
+  例子：医院急诊室  登机顺序
+      实现一个优先级队列：两个选项：设置优先级，在正确的位置添加元素
+                       元素的添加与删除是基于优先级
+      使用api：array的findIndex：按条件找到满足条件第一个元素下标返回  返回-1代表没找到
+              array的splice向数组的一个位置添加或者删除一个元素
+              array的shift：删除数组的第一个元素并返回该元素
+              array的push：向数组尾部添加一个元素
+      复习：定义类的方法 若返回类相关属性的值  需要在方法前加get
+ 2.循环队列
+    目的：充分利用向量空间，克服“假溢出”，将向量空间看作首尾相接圆环，这种向量称为循环向量，存储在
+        在其中的队列称为循环队列（circular  queue） 、
+    实现：单链表  队列

@@ -54,10 +54,123 @@ hahaha
      目前ES6已经新加入了set类型的实现
      复习:hasOwnProperty和Object.keys的用法
      交  并  差 子
+     复习：some的用法 返回为逻辑值 内部为逻辑判断 有一个满足的返回true剩下不检测  没有满足的返回false
+     注意：不检测空数组  不改变原始数组
+     实现判断子集思路 ：一旦找到一个不包含的就结束 some中用has遇到不满足的返回false会接着检测 此时只要使用！
+                    就可结束检测返回true  但是条件不满足 所以在外层再取反返回
+
 
    7.字典
-      集合，字典，散列表可以存储不重复数据  集合存储{value，value}
-      字典{key：value} 也叫做映射  object对象是紫蝶在js中实现
+      {集合}，字典，散列表可以存储不重复数据  集合存储{value，value}
+      {字典}{key：value} 也叫做映射  object对象是紫蝶在js中实现
+      {散列}（HashTable 也叫HashMap类 是Dictionary的散列实现方式）
+       优点：快速找到一个值  字典需要迭代整个表  给定一个键值 返回值再表中地址
+
+       最常见的散列函数 lose  lose ：将每个键值中每个字母ascll码相加
+       对于hashtable 元素分布于整个数组范围内  一些位置无元素默认为undifiend
+       eg：
+           键            散列函数         散列值    散列表
+          Gandalf       71+97+...       685      键，散列值/内容
+        注意：不同的key可能会有相同散列值  后添加会覆盖，解决方法{分离链接，线性探查，双散列法}
+              分离链接：{ 散列表中每个位置加入一个链表
+
+
+
+
+              }
+
+              线性探查：{ 操作时不断为index+1
+
+
+
+
+              }
+
+              双散列
+              根本解决方法：相对loselose更好的散列函数djb2  不会有冲突
+
+
+       {散列集合}：插入 移除  获取新元素 使用散列函数 不插入键值对 直插入值
+               eg：存储英语单词  只存储位移不重复
+
+
+       复习：{for of 和 for in}再数组和对象中区别：of打印value in 打印key
+          const arr = [2, 3, 5, 4, 5, 2, 2];
+           for(let i of arr){
+           console.log(i) //打印出来的是value 2,3,5,4,2,2
+          }
+          for(let i in arr){
+           console.log(i) //打印出来的是下标 0,1,2,3,4,5,6
+          }
+           for of迭代对象会报错 es6对象没有iterable
+           解决方法：
+            function* entires(obj) {
+               for(let key of Object.keys(obj)) {
+                 yield [key,obj[key]]
+                 }
+             }
+            for (let [key,value] of entires(obj)) {
+            console.log(key,value)}
+            }
+       {generator函数}(生成器) 数据类型 可返回多次:
+          函数末尾如果没有return，就是隐含的return undefined   控制权无法交回被调用的代码
+          yield 对比return  是一个返回多次的函数
+          佩波纳奇数列  函数的话一次必须返回一个array  使用function*可以不断返回
+          generator有两个方法  next（）执行阿德代码 每次遇到yield返回一个对象 当done为true 全部执行完毕 不需要继续next
+          https://www.liaoxuefeng.com/wiki/1022910821149312/1023024381818112
+       str.charCodeAt（0）返回第一个字符的unicode值  0 - 65535 之间的整数
+
+       复习：{内存泄露}
+            不在用到的内存 没有及时释放
+            内存管理：垃圾回收机
+            js中：mark-and-sweep 标记清除： 变量进入环境（例如，在函数中声明一个变量）时，就将这个变量标记为“进入环境”。从逻辑上讲，永远不能释放进入环境的变量所占的内存，因为只要执行流进入相应的环境，就可能用到它们。而当变量离开环境时，这将其 标记为“离开环境”。
+             常见原因：{全局变量}  function leaks() {leak = 'xxxx'}
+                      {闭包} 匿名函数可以访问父级作用域变量
+                            var leak = (function() {
+                              var leak = 'xxxx'; 不会释放 被闭包引用
+                              return function() {
+                              console.log(leak);}
+                            })()
+
+                      {dom清空or删除 事件未清除}
+
+                          <div id="container"></div>
+
+                          $('#container').bind('click', function(){
+                              console.log('click');
+                          }).remove();
+                       {子元素引起的内存泄露}
+                        假如你的 JavaScript 代码中保存了表格某一个 <td> 的引用。将来决定删除整个表格的时候，直觉认为 GC 会回收除了已保存的 <td> 以外的其它节点。
+
+                        实际情况并非如此：此<td> 是表格的子节点，子元素与父元素是引用关系。由于代码保留了 <td> 的引用，导致整个表格仍待在内存中。
+                       {被遗忘的计时器或回调函数}
+
+                         var someResource = getData();
+                         setInterval(function() {
+                             var node = document.getElementById('Node');
+                             if(node) {
+                                 // 处理 node 和 someResource
+                            node.innerHTML = JSON.stringify(someResource));
+                             }
+                         }, 1000);
+                         怎样避免内存泄露：
+
+                         1）减少不必要的全局变量，或者生命周期较长的对象，及时对无用的数据进行垃圾回收；
+
+                         2）注意程序逻辑，避免“死循环”之类的 ；
+
+                         3）避免创建过多的对象 原则：不用了的东西要及时归还。
+
+                         三、什么是内存溢出（out of menory）？
+                         内存溢出（out of memory）：程序要求的内存，超出了系统所能分配的范围。
+
+                         如：我们用一个int型4字节的数据来装一个float型8字节的数据，就会产生内存溢出。不过我们在编程是可以强制类型转换int XX = (int)float;只取float 4字节数据给int。
+
+
+
+
+
+
 
 
 

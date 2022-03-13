@@ -1,6 +1,6 @@
 class Set{
     constructor(items) {
-        this.items = items || []
+        this.items = items || {}
     }
     has(value) {
         return this.items.hasOwnProperty(value)
@@ -67,6 +67,14 @@ class Set{
     return differSet
 }
 
+    subSet(otherSet) {   /*子集*/
+        if(this.size > otherSet.size) {
+            return false
+        } else {
+            return !this.values.some(v=>!otherSet.has(v))
+        }
+    }
+
 }
 const set = new Set()
 const set2 = new Set()
@@ -74,10 +82,10 @@ const set2 = new Set()
 set.add(1);
 set.add(2);
 set.add(3);
-set2.add(6);
+set2.add(1);
 set2.add(2);
-set2.add(9);
-
+// set2.add(3);
+// set2.add(4)
 
 
 //交集
@@ -114,3 +122,11 @@ console.log('----差集'+set.diffSet(set2).values)
 //     return differSet
 // }
 //子集
+console.log('子集'+set.subSet(set2))
+// subSet(otherSet) {
+//     if(this.size > otherSet.size) {
+//         return false
+//     } else {
+//         return !this.values.some(v=>!otherSet.has(v))
+//     }
+// }

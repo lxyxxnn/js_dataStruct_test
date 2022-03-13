@@ -1,4 +1,4 @@
-class Node{
+  class Node{
     constructor(element) {
         this.element = element
         this.next = null
@@ -6,7 +6,7 @@ class Node{
 
 }
 
-class  LinkTable{
+ class  LinkTable{
     constructor() {
         this.head = null
         this.length = 0
@@ -85,7 +85,7 @@ class  LinkTable{
         const index = this.findIndex(element)
          return this.removeAt(index)
      }
-     isEmpty() {
+     get isEmpty() {
         return !this.length
      }
 
@@ -103,17 +103,18 @@ class  LinkTable{
      }
 }
 
-const  linklist = new LinkTable()
-linklist.insert(0,6)
-console.log(linklist)
-linklist.append(2)
-linklist.append(3)
-linklist.append(4)
-linklist.append(5)
-console.log(linklist)
-console.log(linklist.findIndex(90))
-console.log(linklist.removeAt(0))
-console.log(linklist.removeAt(0))
-console.log(linklist.remove(5))
-
-console.log(linklist)
+// const  linklist = new LinkTable()
+// linklist.insert(0,6)
+// console.log(linklist)
+// linklist.append(2)
+// linklist.append(3)
+// linklist.append(4)
+// linklist.append(5)
+// console.log(linklist)
+// console.log(linklist.findIndex(90))
+// console.log(linklist.removeAt(0))
+// console.log(linklist.removeAt(0))
+// console.log(linklist.remove(5))
+//
+// console.log(linklist)
+module.exports = {LinkTable,Node}
